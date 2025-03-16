@@ -12,6 +12,7 @@ This is a Spring Boot project designed to provide a basic foundation for buildin
 - **Spring Data JPA**: To simplify database operations and integrate JPA with Spring.
 - **Maven**: Dependency management and build tool.
 - **H2**: An in-memory database used for development and testing.
+- **MapStruct**: A code generator that simplifies the implementation of mappings between Java bean types based on a convention over configuration approach.
 
 ## Setup & Installation
 
