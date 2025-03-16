@@ -1,8 +1,8 @@
 package com.hiberus.hiring.infrastructure.config;
 
+import com.hiberus.hiring.application.command.BrandCommandService;
 import com.hiberus.hiring.domain.enums.BrandEnum;
 import com.hiberus.hiring.domain.model.Brand;
-import com.hiberus.hiring.domain.ports.in.BrandService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class BrandInitializerConfig {
 
-  private final BrandService brandService;
+  private final BrandCommandService brandService;
 
   @PostConstruct()
   public void init() {
