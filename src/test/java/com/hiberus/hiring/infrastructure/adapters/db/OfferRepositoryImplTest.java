@@ -1,11 +1,11 @@
-package com.hiberus.hiring.infraestructure.persistence;
+package com.hiberus.hiring.infrastructure.adapters.db;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.hiberus.hiring.domain.model.Offer;
-import com.hiberus.hiring.infraestructure.mapper.OfferMapper;
+import com.hiberus.hiring.infrastructure.adapters.mapper.OfferMapper;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

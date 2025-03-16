@@ -1,4 +1,4 @@
-package com.hiberus.hiring.infraestructure.persistence;
+package com.hiberus.hiring.infrastructure.adapters.db;
 
 import com.hiberus.hiring.domain.model.Currency;
 import jakarta.persistence.Column;

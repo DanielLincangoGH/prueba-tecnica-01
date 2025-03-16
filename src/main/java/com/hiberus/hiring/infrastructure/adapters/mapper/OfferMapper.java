@@ -1,9 +1,9 @@
-package com.hiberus.hiring.infraestructure.mapper;
+package com.hiberus.hiring.infrastructure.adapters.mapper;
 
 import com.hiberus.hiring.domain.model.Currency;
 import com.hiberus.hiring.domain.model.Offer;
-import com.hiberus.hiring.infraestructure.persistence.BrandEntity;
-import com.hiberus.hiring.infraestructure.persistence.OfferEntity;
+import com.hiberus.hiring.infrastructure.adapters.db.BrandEntity;
+import com.hiberus.hiring.infrastructure.adapters.db.OfferEntity;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
