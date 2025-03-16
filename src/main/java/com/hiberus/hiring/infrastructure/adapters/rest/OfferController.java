@@ -31,7 +31,7 @@ public class OfferController {
   @DeleteMapping(value = "/offer")
   @ResponseStatus(HttpStatus.OK)
   public void deleteAllOffers() {
-    //TODO implement it!.
+    this.offerService.deleteAll();
   }
 
   @DeleteMapping(value = "/offer/{id}")

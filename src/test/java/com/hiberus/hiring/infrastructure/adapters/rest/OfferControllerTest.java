@@ -1,5 +1,6 @@
 package com.hiberus.hiring.infrastructure.adapters.rest;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -74,5 +75,12 @@ public class OfferControllerTest {
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(invalidOffer)))
         .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  @DisplayName("Success: Given no offer When delete all offers then it returns status 200 OK")
+  public void givenNoOfferWhenDeleteAllOffersThenReturnsOk() throws Exception {
+    mockMvc.perform(delete("/offer"))
+        .andExpect(status().isOk());
   }
 }

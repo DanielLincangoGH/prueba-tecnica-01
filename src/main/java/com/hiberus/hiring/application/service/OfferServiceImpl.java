@@ -27,7 +27,7 @@ public class OfferServiceImpl implements OfferService {
 
   @Override
   public void deleteAll() {
-    //TODO: Implement this method
+    this.offerCommandService.deleteAll();
   }
 
   @Override

@@ -23,7 +23,9 @@ public class OfferJpaRepository implements OfferRepository {
 
   @Override
   public void deleteAll() {
-    //TODO: Implement this method
+    final var criteriaBuilder = entityManager.getCriteriaBuilder();
+    final var deleteCriteria = criteriaBuilder.createCriteriaDelete(OfferEntity.class);
+    entityManager.createQuery(deleteCriteria).executeUpdate();
   }
 
   @Override

@@ -19,4 +19,9 @@ public class OfferCommandServiceImpl implements OfferCommandService {
     this.offerRepository.create(offer);
   }
 
+  @Override
+  public void deleteAll() {
+    this.offerRepository.deleteAll();
+  }
+
 }

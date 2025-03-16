@@ -35,4 +35,12 @@ class OfferCommandServiceImplTest {
     offerCommandService.create(offer);
     verify(offerRepository).create(offer);
   }
+
+
+  @Test
+  @DisplayName("Success: Given No Info When delete all, then delete all offers")
+  void givenNoInfoWhenDeleteAllThenDeleteAllOffers() {
+    offerCommandService.deleteAll();
+    verify(offerRepository).deleteAll();
+  }
 }

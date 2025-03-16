@@ -6,4 +6,5 @@ public interface OfferCommandService {
 
   void create(Offer offer);
 
+  void deleteAll();
 }

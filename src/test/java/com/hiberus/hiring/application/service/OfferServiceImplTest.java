@@ -49,4 +49,12 @@ class OfferServiceImplTest {
     verify(offerQueryService).verifyAlreadyOfferExists(offer.getOfferId());
     verify(offerCommandService).create(offer);
   }
+
+  @Test
+  @DisplayName("Success: Given no Offer When delete all, then delete all offers")
+  void giveNoOfferWhenDeleteAllThenDeleteAllOffers() {
+    doNothing().when(offerCommandService).deleteAll();
+    offerService.deleteAll();
+    verify(offerCommandService).deleteAll();
+  }
 }
