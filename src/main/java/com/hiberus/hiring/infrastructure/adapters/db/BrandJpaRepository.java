@@ -9,14 +9,13 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class BrandRepositoryImpl implements BrandRepository {
+public class BrandJpaRepository implements BrandRepository {
 
   private final EntityManager entityManager;
   private final BrandMapper brandMapper;
 
   @Override
   public void create(Brand brand) {
-    var newBrandEntity = brandMapper.toEntity(brand);
-    entityManager.merge(newBrandEntity);
+    entityManager.merge(brandMapper.toEntity(brand));
   }
 }

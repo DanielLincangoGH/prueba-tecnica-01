@@ -1,4 +1,4 @@
-package com.hiberus.hiring.infrastructure.condig;
+package com.hiberus.hiring.infrastructure.config;
 
 import com.hiberus.hiring.domain.enums.BrandEnum;
 import com.hiberus.hiring.domain.model.Brand;
