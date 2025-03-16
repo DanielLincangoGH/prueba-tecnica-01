@@ -10,4 +10,6 @@ public interface OfferQueryService {
   void verifyAlreadyOfferExists(Long offerId);
 
   List<Offer> findAll();
+
+  Offer findById(Long offerId);
 }

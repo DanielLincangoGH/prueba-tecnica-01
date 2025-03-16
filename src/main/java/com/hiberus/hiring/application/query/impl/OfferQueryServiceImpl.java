@@ -19,9 +19,7 @@ public class OfferQueryServiceImpl implements OfferQueryService {
 
   @Override
   public void verifyOfferExists(Long offerId) {
-    if (offerRepository.findById(offerId).isEmpty()) {
-      throw new OfferNotFoundException("Offer not found");
-    }
+    this.findById(offerId);
   }
 
   @Override
@@ -34,6 +32,15 @@ public class OfferQueryServiceImpl implements OfferQueryService {
   @Override
   public List<Offer> findAll() {
     return offerRepository.findAll();
+  }
+
+  @Override
+  public Offer findById(Long offerId) {
+    final var offerOptional = offerRepository.findById(offerId);
+    if (offerOptional.isEmpty()) {
+      throw new OfferNotFoundException("Offer not found");
+    }
+    return offerOptional.get();
   }
 
 }

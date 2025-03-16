@@ -74,4 +74,20 @@ class OfferQueryServiceImplTest {
     List<Offer> actualOffers = offerQueryService.findAll();
     assertEquals(expectedOffers, actualOffers);
   }
+
+  @Test
+  @DisplayName("Success: Given offer ID, when offer exists, then return the offer")
+  void givenOfferIdWhenOfferExistsThenReturnOffer() {
+    Offer expectedOffer = new Offer();
+    when(offerRepository.findById(offerId)).thenReturn(Optional.of(expectedOffer));
+    Offer actualOffer = offerQueryService.findById(offerId);
+    assertEquals(expectedOffer, actualOffer);
+  }
+
+  @Test
+  @DisplayName("Failed: Given offer ID, when offer does not exist, then throw OfferNotFoundException")
+  void givenOfferIdWhenOfferDoesNotExistThenThrowOfferNotFoundException() {
+    when(offerRepository.findById(offerId)).thenReturn(Optional.empty());
+    assertThrows(OfferNotFoundException.class, () -> offerQueryService.findById(offerId));
+  }
 }

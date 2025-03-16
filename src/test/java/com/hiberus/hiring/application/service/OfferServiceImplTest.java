@@ -81,4 +81,14 @@ class OfferServiceImplTest {
     List<Offer> actualOffers = offerService.findAll();
     assertEquals(expectedOffers, actualOffers);
   }
+
+  @Test
+  @DisplayName("Success: Given offer ID, when offer exists, then return the offer")
+  void givenOfferIdWhenOfferExistsThenReturnOffer() {
+    Long offerId = 1L;
+    Offer expectedOffer = new Offer();
+    when(offerQueryService.findById(offerId)).thenReturn(expectedOffer);
+    Offer actualOffer = offerService.findById(offerId);
+    assertEquals(expectedOffer, actualOffer);
+  }
 }

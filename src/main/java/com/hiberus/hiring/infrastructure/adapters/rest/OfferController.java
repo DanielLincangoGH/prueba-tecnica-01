@@ -48,9 +48,8 @@ public class OfferController {
 
   @GetMapping(value = "/offer/{id}")
   @ResponseStatus(HttpStatus.OK)
-  public Offer getOfferById(Long offerId) {
-    //TODO implement it!.
-    return new Offer();
+  public Offer getOfferById(@PathVariable Long id) {
+    return this.offerService.findById(id);
   }
 
   @GetMapping(value = "brand/{brandId}/partnumber/{partnumber}/offer")

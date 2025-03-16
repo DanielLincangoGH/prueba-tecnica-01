@@ -122,4 +122,36 @@ public class OfferControllerTest {
         .andExpect(jsonPath("$[0].price", is(10.00)))
         .andExpect(jsonPath("$[0].currencyIso", is("USD")));
   }
+
+  @Test
+  @DisplayName("Success: Given offer ID, when getOfferById is called, then it returns status 200 OK and the offer")
+  public void givenOfferIdWhenGetOfferByIdThenReturnsOk() throws Exception {
+    Long offerId = 1L;
+    Offer expectedOffer = Offer.builder()
+        .offerId(offerId)
+        .brandId(1)
+        .startDate("2023-01-01T00:00:00Z")
+        .endDate("2023-12-31T23:59:59Z")
+        .priceListId(1L)
+        .productPartnumber("123456789012")
+        .priority(1)
+        .price(new BigDecimal("10.00"))
+        .currencyIso("USD")
+        .build();
+
+    when(offerService.findById(offerId)).thenReturn(expectedOffer);
+
+    mockMvc.perform(get("/offer/{id}", offerId)
+            .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.offerId", is(1)))
+        .andExpect(jsonPath("$.brandId", is(1)))
+        .andExpect(jsonPath("$.startDate", is("2023-01-01T00:00:00Z")))
+        .andExpect(jsonPath("$.endDate", is("2023-12-31T23:59:59Z")))
+        .andExpect(jsonPath("$.priceListId", is(1)))
+        .andExpect(jsonPath("$.productPartnumber", is("123456789012")))
+        .andExpect(jsonPath("$.priority", is(1)))
+        .andExpect(jsonPath("$.price", is(10.00)))
+        .andExpect(jsonPath("$.currencyIso", is("USD")));
+  }
 }

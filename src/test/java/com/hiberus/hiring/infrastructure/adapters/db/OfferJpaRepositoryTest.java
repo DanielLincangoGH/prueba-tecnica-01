@@ -1,5 +1,7 @@
 package com.hiberus.hiring.infrastructure.adapters.db;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -7,6 +9,15 @@ import static org.mockito.Mockito.when;
 import com.hiberus.hiring.domain.model.Offer;
 import com.hiberus.hiring.infrastructure.adapters.mapper.OfferMapper;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaDelete;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,6 +34,24 @@ class OfferJpaRepositoryTest {
 
   @Mock
   private OfferMapper offerMapper;
+
+  @Mock
+  private CriteriaBuilder criteriaBuilder;
+
+  @Mock
+  private CriteriaDelete<OfferEntity> criteriaDelete;
+
+  @Mock
+  private Query query;
+
+  @Mock
+  private Root<OfferEntity> root;
+
+  @Mock
+  private CriteriaQuery<OfferEntity> criteriaQuery;
+
+  @Mock
+  private TypedQuery<OfferEntity> typedQuery;
 
   @InjectMocks
   private OfferJpaRepository offerRepository;
@@ -41,26 +70,56 @@ class OfferJpaRepositoryTest {
   void givenAnOfferWhenCreateThenPersistTheOfferEntity() {
     when(offerMapper.toOfferEntity(offer)).thenReturn(offerEntity);
     offerRepository.create(offer);
-    verify(entityManager, times(1)).merge(offerEntity);
+    verify(entityManager, times(1)).persist(offerEntity);
   }
 
   @Test
-  void deleteAll() {
-    // Implement the test for deleteAll method when it is implemented
+  @DisplayName("Success: Given no offer, when delete all, then delete all offer entities")
+  void givenNoOfferWhenDeleteAllThenDeleteAllOffers() {
+    when(entityManager.getCriteriaBuilder()).thenReturn(criteriaBuilder);
+    when(criteriaBuilder.createCriteriaDelete(OfferEntity.class)).thenReturn(criteriaDelete);
+    when(entityManager.createQuery(criteriaDelete)).thenReturn(query);
+    when(query.executeUpdate()).thenReturn(1);
+    offerRepository.deleteAll();
+    verify(entityManager, times(1)).createQuery(criteriaDelete);
   }
 
   @Test
-  void deleteById() {
-    // Implement the test for deleteById method when it is implemented
+  @DisplayName("Success: Given offer ID, when deleteById, then delete the offer entity by ID")
+  void givenOfferIdWhenDeleteByIdThenDeleteOffer() {
+    Long offerId = 1L;
+    when(entityManager.getCriteriaBuilder()).thenReturn(criteriaBuilder);
+    when(criteriaBuilder.createCriteriaDelete(OfferEntity.class)).thenReturn(criteriaDelete);
+    when(criteriaDelete.from(OfferEntity.class)).thenReturn(root);
+    when(entityManager.createQuery(criteriaDelete)).thenReturn(query);
+    when(query.executeUpdate()).thenReturn(1);
+    offerRepository.deleteById(offerId);
+    verify(entityManager, times(1)).createQuery(criteriaDelete);
   }
 
   @Test
-  void findAll() {
-    // Implement the test for findAll method when it is implemented
+  @DisplayName("Success: Given no offer, when find all, then return all offers")
+  void givenNoOfferWhenFindAllThenReturnAllOffers() {
+    List<OfferEntity> offerEntities = Collections.singletonList(offerEntity);
+    List<Offer> expectedOffers = Collections.singletonList(offer);
+    when(entityManager.getCriteriaBuilder()).thenReturn(criteriaBuilder);
+    when(criteriaBuilder.createQuery(OfferEntity.class)).thenReturn(criteriaQuery);
+    when(criteriaQuery.from(OfferEntity.class)).thenReturn(root);
+    when(entityManager.createQuery(criteriaQuery)).thenReturn(typedQuery);
+    when(typedQuery.getResultList()).thenReturn(offerEntities);
+    when(offerMapper.toDomainList(offerEntities)).thenReturn(expectedOffers);
+    List<Offer> actualOffers = offerRepository.findAll();
+    assertEquals(expectedOffers, actualOffers);
   }
 
   @Test
-  void findById() {
-    // Implement the test for findById method when it is implemented
+  @DisplayName("Success: Given offer ID, when findById, then return the offer")
+  void givenOfferIdWhenFindByIdThenReturnOffer() {
+    Long offerId = 1L;
+    when(entityManager.find(OfferEntity.class, offerId)).thenReturn(offerEntity);
+    when(offerMapper.toDomain(offerEntity)).thenReturn(offer);
+    Optional<Offer> actualOffer = offerRepository.findById(offerId);
+    assertTrue(actualOffer.isPresent());
+    assertEquals(offer, actualOffer.get());
   }
 }

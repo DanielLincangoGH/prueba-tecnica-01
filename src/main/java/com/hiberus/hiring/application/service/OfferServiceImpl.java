@@ -46,6 +46,6 @@ public class OfferServiceImpl implements OfferService {
   @Override
   @Transactional(readOnly = true)
   public Offer findById(Long offerId) {
-    return Offer.builder().build();
+    return this.offerQueryService.findById(offerId);
   }
 }
