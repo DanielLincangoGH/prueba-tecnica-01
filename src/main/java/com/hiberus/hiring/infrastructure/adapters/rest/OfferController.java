@@ -2,69 +2,62 @@ package com.hiberus.hiring.infrastructure.adapters.rest;
 
 import com.hiberus.hiring.domain.model.Offer;
 import com.hiberus.hiring.domain.model.OfferByPartNumber;
+import com.hiberus.hiring.domain.ports.in.OfferService;
+import jakarta.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-
-import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * You can change this controller but please do not change ends points signatures & payloads.
- */
 @RestController
+@RequiredArgsConstructor
 public class OfferController {
 
-  @RequestMapping(value = "/offer", method = RequestMethod.POST, consumes = "application/json")
+  private final OfferService offerService;
+
+  @PostMapping(value = "/offer", consumes = "application/json")
   @ResponseStatus(HttpStatus.CREATED)
   public void createNewOffer(@RequestBody @Valid Offer offer) {
-
-    //TODO implement it!.
-
+    this.offerService.createOffer(offer);
   }
 
-  @RequestMapping(value = "/offer", method = RequestMethod.DELETE)
+  @DeleteMapping(value = "/offer")
   @ResponseStatus(HttpStatus.OK)
   public void deleteAllOffers() {
-
     //TODO implement it!.
-
   }
 
-  @RequestMapping(value = "/offer/{id}", method = RequestMethod.DELETE)
+  @DeleteMapping(value = "/offer/{id}")
   @ResponseStatus(HttpStatus.OK)
   public void deleteOfferById(@RequestParam Long id) {
-
     //TODO implement it!.
-
   }
 
-  @RequestMapping(value = "/offer", method = RequestMethod.GET)
+  @GetMapping(value = "/offer")
   @ResponseStatus(HttpStatus.OK)
   public List<Offer> getAllOffers() {
-
     //TODO implement it!.
     return new ArrayList<>();
 
   }
 
-  @RequestMapping(value = "/offer/{id}", method = RequestMethod.GET)
+  @GetMapping(value = "/offer/{id}")
   @ResponseStatus(HttpStatus.OK)
   public Offer getOfferById(Long offerId) {
-
     //TODO implement it!.
     return new Offer();
   }
 
-  @RequestMapping(value = "brand/{brandId}/partnumber/{partnumber}/offer", method = RequestMethod.GET)
+  @GetMapping(value = "brand/{brandId}/partnumber/{partnumber}/offer")
   @ResponseStatus(HttpStatus.OK)
   public List<OfferByPartNumber> getOfferByPartNumber(Integer brandId, String partnumber) {
-
     //TODO implement it!.
     return new ArrayList<>();
   }
