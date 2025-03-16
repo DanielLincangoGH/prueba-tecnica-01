@@ -1,7 +1,7 @@
 package com.hiberus.hiring.controller;
 
-import com.hiberus.hiring.controller.dto.Offer;
-import com.hiberus.hiring.controller.dto.OfferByPartNumber;
+import com.hiberus.hiring.domain.model.Offer;
+import com.hiberus.hiring.domain.model.OfferByPartNumber;
 import java.util.ArrayList;
 import java.util.List;
 
