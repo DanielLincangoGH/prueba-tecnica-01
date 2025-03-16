@@ -1,10 +1,12 @@
 package com.hiberus.hiring.application.service;
 
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 
+import com.hiberus.hiring.application.command.OfferCommandService;
 import com.hiberus.hiring.application.query.BrandQueryService;
+import com.hiberus.hiring.application.query.OfferQueryService;
 import com.hiberus.hiring.domain.model.Offer;
-import com.hiberus.hiring.domain.ports.out.OfferRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,10 +19,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class OfferServiceImplTest {
 
   @Mock
-  private OfferRepository offerRepository;
+  private BrandQueryService brandQueryService;
 
   @Mock
-  private BrandQueryService brandQueryService;
+  private OfferQueryService offerQueryService;
+
+  @Mock
+  private OfferCommandService offerCommandService;
 
   @InjectMocks
   private OfferServiceImpl offerService;
@@ -34,11 +39,14 @@ class OfferServiceImplTest {
   }
 
   @Test
-  @DisplayName("Success: Given an offer, when createOffer, then verify brand and create the offer")
-  void givenAnOfferWhenCreateOfferThenVerifyBrandAndCreateThe() {
-    Long brandId = Long.valueOf(offer.getBrandId());
+  @DisplayName("Success: Given an offer, when create, then verify brand, check offer existence, and create the offer")
+  void givenAnOfferWhenCreateThenVerifyBrandCheckOfferExistenceAndCreateTheOffer() {
+    doNothing().when(brandQueryService).verifyBrand(Long.valueOf(offer.getBrandId()));
+    doNothing().when(offerQueryService).verifyAlreadyOfferExists(offer.getOfferId());
+    doNothing().when(offerCommandService).create(offer);
     offerService.create(offer);
-    verify(brandQueryService).verifyBrand(brandId);
-    verify(offerRepository).create(offer);
+    verify(brandQueryService).verifyBrand(Long.valueOf(offer.getBrandId()));
+    verify(offerQueryService).verifyAlreadyOfferExists(offer.getOfferId());
+    verify(offerCommandService).create(offer);
   }
 }

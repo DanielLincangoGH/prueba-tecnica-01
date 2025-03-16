@@ -33,6 +33,7 @@ public class Offer implements Serializable {
   private String endDate;
 
   @NotNull(message = "priceListId is required")
+  @DecimalMin(value = "1", inclusive = true, message = "priceListId must be greater or equal than 0")
   private Long priceListId;
 
   @NotNull(message = "productId is required")
@@ -40,6 +41,7 @@ public class Offer implements Serializable {
   private String productPartnumber;
 
   @NotNull(message = "priority is required")
+  @DecimalMin(value = "0", inclusive = true, message = "price must be greater or equal than 0")
   private Integer priority;
 
   @NotNull(message = "price is required")

@@ -22,9 +22,22 @@ public interface OfferMapper {
   @Mapping(source = "productPartnumber", target = "partnumber", qualifiedByName = "padPartnumber")
   OfferEntity toOfferEntity(Offer offer);
 
+  @Mapping(source = "endDate", target = "endDate", qualifiedByName = "offsetDateTimeToString")
+  @Mapping(source = "startDate", target = "startDate", qualifiedByName = "offsetDateTimeToString")
+  @Mapping(source = "brand", target = "brandId", qualifiedByName = "brandEntityToBrandId")
+  @Mapping(source = "priceList", target = "priceListId", qualifiedByName = "bigDecimalToPriceListId")
+  @Mapping(source = "currency", target = "currencyIso", qualifiedByName = "currencyToString")
+  @Mapping(source = "partnumber", target = "productPartnumber", qualifiedByName = "unpadPartnumber")
+  Offer toDomain(OfferEntity offerEntity);
+
   @Named("stringToOffsetDateTime")
   default OffsetDateTime stringToOffsetDateTime(String value) {
     return OffsetDateTime.parse(value, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+  }
+
+  @Named("offsetDateTimeToString")
+  default String offsetDateTimeToString(OffsetDateTime value) {
+    return value.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
   }
 
   @Named("brandIdToBrandEntity")
@@ -50,6 +63,26 @@ public interface OfferMapper {
   @Named("padPartnumber")
   default String padPartnumber(String partnumber) {
     return String.format("%012d", Long.parseLong(partnumber));
+  }
+
+  @Named("brandEntityToBrandId")
+  default Integer brandEntityToBrandId(BrandEntity brandEntity) {
+    return brandEntity != null ? brandEntity.getBrandId().intValue() : null;
+  }
+
+  @Named("bigDecimalToPriceListId")
+  default Long bigDecimalToPriceListId(BigDecimal priceList) {
+    return priceList != null ? priceList.longValue() : null;
+  }
+
+  @Named("currencyToString")
+  default String currencyToString(CurrencyEnum currency) {
+    return currency.name();
+  }
+
+  @Named("unpadPartnumber")
+  default String unpadPartnumber(String partnumber) {
+    return String.valueOf(Long.parseLong(partnumber));
   }
 
 }

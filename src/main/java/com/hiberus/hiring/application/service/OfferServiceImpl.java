@@ -1,9 +1,10 @@
 package com.hiberus.hiring.application.service;
 
+import com.hiberus.hiring.application.command.OfferCommandService;
 import com.hiberus.hiring.application.query.BrandQueryService;
+import com.hiberus.hiring.application.query.OfferQueryService;
 import com.hiberus.hiring.domain.model.Offer;
 import com.hiberus.hiring.domain.ports.in.OfferService;
-import com.hiberus.hiring.domain.ports.out.OfferRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,12 +15,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class OfferServiceImpl implements OfferService {
 
   private final BrandQueryService brandQueryService;
-  private final OfferRepository offerRepository;
+  private final OfferCommandService offerCommandService;
+  private final OfferQueryService offerQueryService;
 
   @Override
   public void create(Offer offer) {
     this.brandQueryService.verifyBrand(Long.valueOf(offer.getBrandId()));
-    this.offerRepository.create(offer);
+    this.offerQueryService.verifyAlreadyOfferExists(offer.getOfferId());
+    this.offerCommandService.create(offer);
   }
 
   @Override

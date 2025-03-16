@@ -5,6 +5,7 @@ import com.hiberus.hiring.domain.ports.out.OfferRepository;
 import com.hiberus.hiring.infrastructure.adapters.mapper.OfferMapper;
 import jakarta.persistence.EntityManager;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -17,8 +18,7 @@ public class OfferJpaRepository implements OfferRepository {
 
   @Override
   public void create(Offer offer) {
-    var offerEntity = offerMapper.toOfferEntity(offer);
-    entityManager.merge(offerEntity);
+    entityManager.persist(offerMapper.toOfferEntity(offer));
   }
 
   @Override
@@ -38,8 +38,8 @@ public class OfferJpaRepository implements OfferRepository {
   }
 
   @Override
-  public Offer findById(String offerId) {
-    //TODO: Implement this method
-    return null;
+  public Optional<Offer> findById(Long offerId) {
+    return Optional.ofNullable(entityManager.find(OfferEntity.class, offerId))
+        .map(offerMapper::toDomain);
   }
 }
