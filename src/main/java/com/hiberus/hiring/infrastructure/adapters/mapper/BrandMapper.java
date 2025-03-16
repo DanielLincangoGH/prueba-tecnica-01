@@ -9,4 +9,6 @@ public interface BrandMapper {
 
   BrandEntity toEntity(Brand brand);
 
+  Brand toDomain(BrandEntity brandEntity);
+
 }

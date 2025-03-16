@@ -25,7 +25,7 @@ public class OfferController {
   @PostMapping(value = "/offer", consumes = "application/json")
   @ResponseStatus(HttpStatus.CREATED)
   public void createNewOffer(@RequestBody @Valid Offer offer) {
-    this.offerService.createOffer(offer);
+    this.offerService.create(offer);
   }
 
   @DeleteMapping(value = "/offer")

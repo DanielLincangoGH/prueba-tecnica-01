@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class OfferRepositoryImpl implements OfferRepository {
+public class OfferJpaRepository implements OfferRepository {
 
   private final EntityManager entityManager;
   private final OfferMapper offerMapper;
@@ -18,7 +18,7 @@ public class OfferRepositoryImpl implements OfferRepository {
   @Override
   public void create(Offer offer) {
     var offerEntity = offerMapper.toOfferEntity(offer);
-    entityManager.persist(offerEntity);
+    entityManager.merge(offerEntity);
   }
 
   @Override

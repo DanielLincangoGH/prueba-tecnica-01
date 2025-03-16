@@ -4,7 +4,7 @@ import com.hiberus.hiring.domain.model.Offer;
 
 public interface OfferService {
 
-  void createOffer(Offer offer);
+  void create(Offer offer);
 
   void deleteAll();
 

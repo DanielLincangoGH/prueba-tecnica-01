@@ -1,6 +1,6 @@
 package com.hiberus.hiring.infrastructure.adapters.mapper;
 
-import com.hiberus.hiring.domain.model.Currency;
+import com.hiberus.hiring.domain.enums.CurrencyEnum;
 import com.hiberus.hiring.domain.model.Offer;
 import com.hiberus.hiring.infrastructure.adapters.db.BrandEntity;
 import com.hiberus.hiring.infrastructure.adapters.db.OfferEntity;
@@ -43,8 +43,8 @@ public interface OfferMapper {
   }
 
   @Named("stringToCurrency")
-  default Currency stringToCurrency(String currencyIso) {
-    return Currency.valueOf(currencyIso);
+  default CurrencyEnum stringToCurrency(String currencyIso) {
+    return CurrencyEnum.valueOf(currencyIso);
   }
 
   @Named("padPartnumber")

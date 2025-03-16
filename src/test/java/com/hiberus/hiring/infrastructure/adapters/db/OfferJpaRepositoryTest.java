@@ -16,7 +16,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class OfferRepositoryImplTest {
+class OfferJpaRepositoryTest {
 
   @Mock
   private EntityManager entityManager;
@@ -25,7 +25,7 @@ class OfferRepositoryImplTest {
   private OfferMapper offerMapper;
 
   @InjectMocks
-  private OfferRepositoryImpl offerRepository;
+  private OfferJpaRepository offerRepository;
 
   private Offer offer;
   private OfferEntity offerEntity;

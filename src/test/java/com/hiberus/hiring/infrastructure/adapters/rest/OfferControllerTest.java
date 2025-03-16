@@ -35,7 +35,7 @@ public class OfferControllerTest {
   }
 
   @Test
-  @DisplayName("SUCCESS: Given a valid offer, when createNewOffer is called, then it returns status 201 Created")
+  @DisplayName("Success: Given a valid offer, when createNewOffer is called, then it returns status 201 Created")
   public void givenOfferWhenCreateThenReturnsOk() throws Exception {
     Offer validOffer = Offer.builder()
         .offerId(1L)
@@ -56,7 +56,7 @@ public class OfferControllerTest {
   }
 
   @Test
-  @DisplayName("FAILURE: Given an invalid offer, when createNewOffer is called, then it returns status 400 Bad Request")
+  @DisplayName("Failure: Given an invalid offer, when createNewOffer is called, then it returns status 400 Bad Request")
   public void givenInvalidOfferWhenCreateThenReturnBadRequest() throws Exception {
     Offer invalidOffer = Offer.builder()
         .offerId(1L)

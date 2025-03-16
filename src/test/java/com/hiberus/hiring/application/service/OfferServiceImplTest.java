@@ -1,8 +1,8 @@
 package com.hiberus.hiring.application.service;
 
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import com.hiberus.hiring.application.query.BrandQueryService;
 import com.hiberus.hiring.domain.model.Offer;
 import com.hiberus.hiring.domain.ports.out.OfferRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,6 +19,9 @@ class OfferServiceImplTest {
   @Mock
   private OfferRepository offerRepository;
 
+  @Mock
+  private BrandQueryService brandQueryService;
+
   @InjectMocks
   private OfferServiceImpl offerService;
 
@@ -27,13 +30,15 @@ class OfferServiceImplTest {
   @BeforeEach
   void setUp() {
     offer = new Offer();
+    offer.setBrandId(1);
   }
 
   @Test
-  @DisplayName("SUCCESS: Given an offer, when createOffer, then create the offer")
-  void givenAnOfferWhenCreateOfferThenCreateTheOffer() {
-    offerService.createOffer(offer);
-    verify(offerRepository, times(1)).create(offer);
+  @DisplayName("Success: Given an offer, when createOffer, then verify brand and create the offer")
+  void givenAnOfferWhenCreateOfferThenVerifyBrandAndCreateThe() {
+    Long brandId = Long.valueOf(offer.getBrandId());
+    offerService.create(offer);
+    verify(brandQueryService).verifyBrand(brandId);
+    verify(offerRepository).create(offer);
   }
-
 }
