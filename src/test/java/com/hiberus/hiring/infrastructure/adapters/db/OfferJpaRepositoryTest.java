@@ -41,7 +41,7 @@ class OfferJpaRepositoryTest {
   void givenAnOfferWhenCreateThenPersistTheOfferEntity() {
     when(offerMapper.toOfferEntity(offer)).thenReturn(offerEntity);
     offerRepository.create(offer);
-    verify(entityManager, times(1)).persist(offerEntity);
+    verify(entityManager, times(1)).merge(offerEntity);
   }
 
   @Test
