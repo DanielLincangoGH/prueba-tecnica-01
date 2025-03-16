@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 import com.hiberus.hiring.domain.exception.OfferAlreadyExistsException;
+import com.hiberus.hiring.domain.exception.OfferNotFoundException;
 import com.hiberus.hiring.domain.model.Offer;
 import com.hiberus.hiring.domain.ports.out.OfferRepository;
 import java.util.Optional;
@@ -44,5 +45,21 @@ class OfferQueryServiceImplTest {
   void givenOfferIdWhenNotExistsThenNoThrowsException() {
     when(offerRepository.findById(offerId)).thenReturn(Optional.empty());
     offerQueryService.verifyAlreadyOfferExists(offerId);
+  }
+
+  @Test
+  @DisplayName("Failed: Given Offer Id When offer does not exist Then Throws OfferNotFoundException")
+  void givenOfferIdWhenOfferDoesNotExistThenThrowsOfferNotFoundException() {
+    when(offerRepository.findById(offerId)).thenReturn(Optional.empty());
+    assertThrows(OfferNotFoundException.class,
+        () -> offerQueryService.verifyOfferExists(offerId));
+  }
+
+
+  @Test
+  @DisplayName("Success: Given Offer Id When offer exists Then not throws exception")
+  void givenOfferIdWhenOfferExistsThenNoThrowsException() {
+    when(offerRepository.findById(offerId)).thenReturn(Optional.of(new Offer()));
+    offerQueryService.verifyOfferExists(offerId);
   }
 }

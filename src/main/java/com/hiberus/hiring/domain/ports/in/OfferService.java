@@ -8,10 +8,10 @@ public interface OfferService {
 
   void deleteAll();
 
-  void deleteById(String offerId);
+  void deleteById(Long offerId);
 
   void findAll();
 
-  void findById(String offerId);
+  void findById(Long offerId);
 
 }

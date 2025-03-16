@@ -2,6 +2,7 @@ package com.hiberus.hiring.infrastructure.adapters.exception;
 
 import com.hiberus.hiring.domain.exception.InvalidBrandException;
 import com.hiberus.hiring.domain.exception.OfferAlreadyExistsException;
+import com.hiberus.hiring.domain.exception.OfferNotFoundException;
 import com.hiberus.hiring.domain.model.Message;
 import java.util.HashMap;
 import java.util.List;
@@ -38,6 +39,12 @@ public class GlobalExceptionHandler {
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public Message handleOfferAlreadyExistsException(OfferAlreadyExistsException e) {
     return Message.builder().code("OFFER_ALREADY_EXISTS").message(e.getMessage()).build();
+  }
+
+  @ExceptionHandler(OfferNotFoundException.class)
+  @ResponseStatus(HttpStatus.NOT_FOUND)
+  public Message handleOfferNotFoundException(OfferNotFoundException e) {
+    return Message.builder().code("OFFER_NOT_FOUND").message(e.getMessage()).build();
   }
 
 }

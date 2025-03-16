@@ -31,8 +31,9 @@ public class OfferServiceImpl implements OfferService {
   }
 
   @Override
-  public void deleteById(String offerId) {
-    //TODO: Implement this method
+  public void deleteById(Long offerId) {
+    this.offerQueryService.verifyOfferExists(offerId);
+    this.offerCommandService.deleteById(offerId);
   }
 
   @Override
@@ -43,7 +44,7 @@ public class OfferServiceImpl implements OfferService {
 
   @Override
   @Transactional(readOnly = true)
-  public void findById(String offerId) {
+  public void findById(Long offerId) {
     //TODO: Implement this method
   }
 }

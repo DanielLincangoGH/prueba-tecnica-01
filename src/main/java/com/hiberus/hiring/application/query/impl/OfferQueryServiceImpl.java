@@ -2,6 +2,7 @@ package com.hiberus.hiring.application.query.impl;
 
 import com.hiberus.hiring.application.query.OfferQueryService;
 import com.hiberus.hiring.domain.exception.OfferAlreadyExistsException;
+import com.hiberus.hiring.domain.exception.OfferNotFoundException;
 import com.hiberus.hiring.domain.ports.out.OfferRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class OfferQueryServiceImpl implements OfferQueryService {
 
   private final OfferRepository offerRepository;
+
+  @Override
+  public void verifyOfferExists(Long offerId) {
+    if (offerRepository.findById(offerId).isEmpty()) {
+      throw new OfferNotFoundException("Offer not found");
+    }
+  }
 
   @Override
   public void verifyAlreadyOfferExists(Long offerId) {

@@ -4,6 +4,7 @@ import com.hiberus.hiring.domain.model.Offer;
 import com.hiberus.hiring.domain.ports.out.OfferRepository;
 import com.hiberus.hiring.infrastructure.adapters.mapper.OfferMapper;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.criteria.Root;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -29,8 +30,12 @@ public class OfferJpaRepository implements OfferRepository {
   }
 
   @Override
-  public void deleteById(String offerId) {
-    //TODO: Implement this method
+  public void deleteById(Long offerId) {
+    final var criteriaBuilder = entityManager.getCriteriaBuilder();
+    final var deleteCriteria = criteriaBuilder.createCriteriaDelete(OfferEntity.class);
+    Root<OfferEntity> root = deleteCriteria.from(OfferEntity.class);
+    deleteCriteria.where(criteriaBuilder.equal(root.get("id"), offerId));
+    entityManager.createQuery(deleteCriteria).executeUpdate();
   }
 
   @Override

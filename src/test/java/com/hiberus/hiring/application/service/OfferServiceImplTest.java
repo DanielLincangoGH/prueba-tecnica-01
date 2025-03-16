@@ -57,4 +57,15 @@ class OfferServiceImplTest {
     offerService.deleteAll();
     verify(offerCommandService).deleteAll();
   }
+
+  @Test
+  @DisplayName("Success: Given Offer ID, When deleteById is called, then delete the offer by ID")
+  void givenOfferIdWhenDeleteByIdIsCalledThenDeleteTheOfferById() {
+    Long offerId = 1L;
+    doNothing().when(offerQueryService).verifyOfferExists(offerId);
+    doNothing().when(offerCommandService).deleteById(offerId);
+    offerService.deleteById(offerId);
+    verify(offerQueryService).verifyOfferExists(offerId);
+    verify(offerCommandService).deleteById(offerId);
+  }
 }

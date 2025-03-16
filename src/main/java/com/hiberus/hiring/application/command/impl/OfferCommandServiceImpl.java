@@ -24,4 +24,9 @@ public class OfferCommandServiceImpl implements OfferCommandService {
     this.offerRepository.deleteAll();
   }
 
+  @Override
+  public void deleteById(Long offerId) {
+    this.offerRepository.deleteById(offerId);
+  }
+
 }
