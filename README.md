@@ -13,6 +13,9 @@ This is a Spring Boot project designed to provide a basic foundation for buildin
 - **Maven**: Dependency management and build tool.
 - **H2**: An in-memory database used for development and testing.
 - **MapStruct**: A code generator that simplifies the implementation of mappings between Java bean types based on a convention over configuration approach.
+- **Mockito**: A mocking framework for unit tests.
+- **JUnit 5**: A testing framework for Java.
+- **BDD (Behavior-Driven Development)**: Using Gherkin format for unit tests.
 
 ## Setup & Installation
 

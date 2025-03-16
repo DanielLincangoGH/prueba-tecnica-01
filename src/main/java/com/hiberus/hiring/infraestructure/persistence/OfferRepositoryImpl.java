@@ -2,35 +2,44 @@ package com.hiberus.hiring.infraestructure.persistence;
 
 import com.hiberus.hiring.domain.model.Offer;
 import com.hiberus.hiring.domain.repository.OfferRepository;
-import java.util.ArrayList;
+import com.hiberus.hiring.infraestructure.mapper.OfferMapper;
+import jakarta.persistence.EntityManager;
 import java.util.List;
-import org.springframework.data.jpa.repository.JpaRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface OfferRepositoryImpl extends JpaRepository<OfferEntity, Integer>, OfferRepository {
+@RequiredArgsConstructor
+public class OfferRepositoryImpl implements OfferRepository {
+
+  private final EntityManager entityManager;
+  private final OfferMapper offerMapper;
 
   @Override
-  default Offer create(Offer offer) {
+  public void create(Offer offer) {
+    var offerEntity = offerMapper.toOfferEntity(offer);
+    entityManager.persist(offerEntity);
+  }
+
+  @Override
+  public void deleteAll() {
+    //TODO: Implement this method
+  }
+
+  @Override
+  public void deleteById(String offerId) {
+    //TODO: Implement this method
+  }
+
+  @Override
+  public List<Offer> findAll() {
+    //TODO: Implement this method
+    return List.of();
+  }
+
+  @Override
+  public Offer findById(String offerId) {
+    //TODO: Implement this method
     return null;
   }
-
-  @Override
-  default void deleteAll() {
-  }
-
-  @Override
-  default void deleteById(String offerId) {
-  }
-
-  @Override
-  default List<Offer> findAllOffers() {
-    return new ArrayList<>();
-  }
-
-  @Override
-  default Offer findOfferById(String offerId) {
-    return null;
-  }
-
 }

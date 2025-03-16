@@ -51,8 +51,11 @@ public class OfferEntity {
   @Column(name = "priority", nullable = false)
   private Short priority;
 
+  @Column(name = "price", nullable = false)
+  private BigDecimal price;
+
   @Enumerated(EnumType.STRING)
-  @Column(name = "currency", nullable = false)
+  @Column(name = "curr", nullable = false)
   private Currency currency;
 
 }

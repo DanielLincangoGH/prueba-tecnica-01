@@ -5,14 +5,14 @@ import java.util.List;
 
 public interface OfferRepository {
 
-  Offer create(Offer offer);
+  void create(Offer offer);
 
   void deleteAll();
 
   void deleteById(String offerId);
 
-  List<Offer> findAllOffers();
+  List<Offer> findAll();
 
-  Offer findOfferById(String offerId);
+  Offer findById(String offerId);
 
 }
