@@ -11,6 +11,7 @@ This is a Spring Boot project designed to provide a basic foundation for buildin
 - **Lombok**: Used to reduce boilerplate code (generates getters, setters, `toString()`, `equals()`, and `hashCode()`).
 - **Spring Data JPA**: To simplify database operations and integrate JPA with Spring.
 - **Maven**: Dependency management and build tool.
+- **H2**: An in-memory database used for development and testing.
 
 ## Setup & Installation
 
