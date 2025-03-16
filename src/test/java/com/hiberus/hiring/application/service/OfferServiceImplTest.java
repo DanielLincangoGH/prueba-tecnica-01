@@ -1,12 +1,16 @@
 package com.hiberus.hiring.application.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.hiberus.hiring.application.command.OfferCommandService;
 import com.hiberus.hiring.application.query.BrandQueryService;
 import com.hiberus.hiring.application.query.OfferQueryService;
 import com.hiberus.hiring.domain.model.Offer;
+import java.util.Collections;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -67,5 +71,14 @@ class OfferServiceImplTest {
     offerService.deleteById(offerId);
     verify(offerQueryService).verifyOfferExists(offerId);
     verify(offerCommandService).deleteById(offerId);
+  }
+
+  @Test
+  @DisplayName("Success: Given no offer, when find all offers, then returns offers")
+  void givenNoOfferWhenFindAllOffersThenReturnsOffers() {
+    List<Offer> expectedOffers = Collections.singletonList(new Offer());
+    when(offerQueryService.findAll()).thenReturn(expectedOffers);
+    List<Offer> actualOffers = offerService.findAll();
+    assertEquals(expectedOffers, actualOffers);
   }
 }

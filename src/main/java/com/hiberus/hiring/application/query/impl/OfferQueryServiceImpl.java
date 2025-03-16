@@ -3,7 +3,9 @@ package com.hiberus.hiring.application.query.impl;
 import com.hiberus.hiring.application.query.OfferQueryService;
 import com.hiberus.hiring.domain.exception.OfferAlreadyExistsException;
 import com.hiberus.hiring.domain.exception.OfferNotFoundException;
+import com.hiberus.hiring.domain.model.Offer;
 import com.hiberus.hiring.domain.ports.out.OfferRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +29,11 @@ public class OfferQueryServiceImpl implements OfferQueryService {
     if (offerRepository.findById(offerId).isPresent()) {
       throw new OfferAlreadyExistsException("Offer already exists");
     }
+  }
+
+  @Override
+  public List<Offer> findAll() {
+    return offerRepository.findAll();
   }
 
 }

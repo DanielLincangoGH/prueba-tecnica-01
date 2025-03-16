@@ -1,6 +1,7 @@
 package com.hiberus.hiring.domain.ports.in;
 
 import com.hiberus.hiring.domain.model.Offer;
+import java.util.List;
 
 public interface OfferService {
 
@@ -10,8 +11,8 @@ public interface OfferService {
 
   void deleteById(Long offerId);
 
-  void findAll();
+  List<Offer> findAll();
 
-  void findById(Long offerId);
+  Offer findById(Long offerId);
 
 }

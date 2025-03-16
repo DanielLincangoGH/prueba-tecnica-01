@@ -5,6 +5,7 @@ import com.hiberus.hiring.application.query.BrandQueryService;
 import com.hiberus.hiring.application.query.OfferQueryService;
 import com.hiberus.hiring.domain.model.Offer;
 import com.hiberus.hiring.domain.ports.in.OfferService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,13 +39,13 @@ public class OfferServiceImpl implements OfferService {
 
   @Override
   @Transactional(readOnly = true)
-  public void findAll() {
-    //TODO: Implement this method
+  public List<Offer> findAll() {
+    return this.offerQueryService.findAll();
   }
 
   @Override
   @Transactional(readOnly = true)
-  public void findById(Long offerId) {
-    //TODO: Implement this method
+  public Offer findById(Long offerId) {
+    return Offer.builder().build();
   }
 }

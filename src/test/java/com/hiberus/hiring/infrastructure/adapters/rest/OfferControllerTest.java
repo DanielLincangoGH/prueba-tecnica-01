@@ -1,13 +1,20 @@
 package com.hiberus.hiring.infrastructure.adapters.rest;
 
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hiberus.hiring.domain.model.Offer;
 import com.hiberus.hiring.domain.ports.in.OfferService;
 import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -82,5 +89,37 @@ public class OfferControllerTest {
   public void givenNoOfferWhenDeleteAllOffersThenReturnsOk() throws Exception {
     mockMvc.perform(delete("/offer"))
         .andExpect(status().isOk());
+  }
+
+  @Test
+  @DisplayName("Success: Given no offer, when getAllOffers is called, then it returns status 200 OK and the list of offers")
+  public void givenNoOfferWhenGetAllOffersThenReturnsOk() throws Exception {
+    List<Offer> expectedOffers = Collections.singletonList(Offer.builder()
+        .offerId(1L)
+        .brandId(1)
+        .startDate("2023-01-01T00:00:00Z")
+        .endDate("2023-12-31T23:59:59Z")
+        .priceListId(1L)
+        .productPartnumber("123456789012")
+        .priority(1)
+        .price(new BigDecimal("10.00"))
+        .currencyIso("USD")
+        .build());
+
+    when(offerService.findAll()).thenReturn(expectedOffers);
+
+    mockMvc.perform(get("/offer")
+            .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$", hasSize(1)))
+        .andExpect(jsonPath("$[0].offerId", is(1)))
+        .andExpect(jsonPath("$[0].brandId", is(1)))
+        .andExpect(jsonPath("$[0].startDate", is("2023-01-01T00:00:00Z")))
+        .andExpect(jsonPath("$[0].endDate", is("2023-12-31T23:59:59Z")))
+        .andExpect(jsonPath("$[0].priceListId", is(1)))
+        .andExpect(jsonPath("$[0].productPartnumber", is("123456789012")))
+        .andExpect(jsonPath("$[0].priority", is(1)))
+        .andExpect(jsonPath("$[0].price", is(10.00)))
+        .andExpect(jsonPath("$[0].currencyIso", is("USD")));
   }
 }

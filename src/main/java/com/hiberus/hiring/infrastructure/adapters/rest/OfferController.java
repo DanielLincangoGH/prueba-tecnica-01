@@ -43,9 +43,7 @@ public class OfferController {
   @GetMapping(value = "/offer")
   @ResponseStatus(HttpStatus.OK)
   public List<Offer> getAllOffers() {
-    //TODO implement it!.
-    return new ArrayList<>();
-
+    return this.offerService.findAll();
   }
 
   @GetMapping(value = "/offer/{id}")

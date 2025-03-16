@@ -7,6 +7,8 @@ import com.hiberus.hiring.infrastructure.adapters.db.OfferEntity;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -29,6 +31,8 @@ public interface OfferMapper {
   @Mapping(source = "currency", target = "currencyIso", qualifiedByName = "currencyToString")
   @Mapping(source = "partnumber", target = "productPartnumber", qualifiedByName = "unpadPartnumber")
   Offer toDomain(OfferEntity offerEntity);
+
+  List<Offer> toDomainList(List<OfferEntity> offerEntities);
 
   @Named("stringToOffsetDateTime")
   default OffsetDateTime stringToOffsetDateTime(String value) {

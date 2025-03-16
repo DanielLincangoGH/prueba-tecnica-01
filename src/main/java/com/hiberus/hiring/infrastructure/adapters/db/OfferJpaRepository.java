@@ -40,8 +40,11 @@ public class OfferJpaRepository implements OfferRepository {
 
   @Override
   public List<Offer> findAll() {
-    //TODO: Implement this method
-    return List.of();
+    var criteriaBuilder = entityManager.getCriteriaBuilder();
+    final var query = criteriaBuilder.createQuery(OfferEntity.class);
+    Root<OfferEntity> root = query.from(OfferEntity.class);
+    query.select(root);
+    return offerMapper.toDomainList(entityManager.createQuery(query).getResultList());
   }
 
   @Override
