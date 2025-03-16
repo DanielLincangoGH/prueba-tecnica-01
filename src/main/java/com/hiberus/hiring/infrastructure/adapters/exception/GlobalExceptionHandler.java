@@ -20,11 +20,15 @@ public class GlobalExceptionHandler {
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public Message handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
     Map<String, String> errors = new HashMap<>();
+
     ex.getBindingResult().getFieldErrors().forEach(error ->
         errors.put(error.getField(), error.getDefaultMessage()));
+
+    ex.getBindingResult().getGlobalErrors().forEach(error ->
+        errors.put(error.getObjectName(), error.getDefaultMessage()));
+
     List<String> messages = errors.entrySet().stream()
-        .map(entry -> entry.getKey() + ": " + entry.getValue())
-        .toList();
+        .map(entry -> entry.getKey() + ": " + entry.getValue()).toList();
     return Message.builder().code("VALIDATION_DATA")
         .message("Invalid params").messages(messages).build();
   }

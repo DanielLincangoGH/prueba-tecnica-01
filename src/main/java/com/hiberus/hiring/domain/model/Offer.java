@@ -1,6 +1,7 @@
 package com.hiberus.hiring.domain.model;
 
 import com.hiberus.hiring.utils.ValidationRegex;
+import com.hiberus.hiring.utils.validators.ValidateDateRange;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -16,6 +17,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ValidateDateRange(message = "startDate must be before endDate")
 public class Offer implements Serializable {
 
   @NotNull(message = "offerId is required")
