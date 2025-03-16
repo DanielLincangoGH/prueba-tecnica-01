@@ -29,16 +29,53 @@ class GlobalExceptionHandlerTest {
   }
 
   @Test
-  @DisplayName("Success: Given MethodArgumentNotValidException, when handle, then return detail message")
-  void givenMethodArgumentNotValidExceptionWhenHandleThenReturnDetailMessage() {
+  @DisplayName("Success: Given MethodArgumentNotValidException with field errors, when handle, then return detail message")
+  void givenMethodArgumentNotValidExceptionWithFieldErrorsWhenHandleThenReturnDetailMessage() {
     BindingResult bindingResult = mock(BindingResult.class);
     FieldError fieldError = new FieldError("objectName", "field", "defaultMessage");
     when(bindingResult.getFieldErrors()).thenReturn(List.of(fieldError));
+    when(bindingResult.getGlobalErrors()).thenReturn(List.of());
+
     MethodArgumentNotValidException ex = new MethodArgumentNotValidException(null, bindingResult);
     Message response = globalExceptionHandler.handleMethodArgumentNotValidException(ex);
+
     assertEquals("VALIDATION_DATA", response.getCode());
     assertEquals("Invalid params", response.getMessage());
     assertEquals(List.of("field: defaultMessage"), response.getMessages());
+  }
+
+  @Test
+  @DisplayName("Success: Given MethodArgumentNotValidException with global errors, when handle, then return detail message")
+  void givenMethodArgumentNotValidExceptionWithGlobalErrorsWhenHandleThenReturnDetailMessage() {
+    BindingResult bindingResult = mock(BindingResult.class);
+    FieldError globalError = new FieldError("objectName", "globalField", "globalMessage");
+    when(bindingResult.getFieldErrors()).thenReturn(List.of());
+    when(bindingResult.getGlobalErrors()).thenReturn(List.of(globalError));
+
+    MethodArgumentNotValidException ex = new MethodArgumentNotValidException(null, bindingResult);
+    Message response = globalExceptionHandler.handleMethodArgumentNotValidException(ex);
+
+    assertEquals("VALIDATION_DATA", response.getCode());
+    assertEquals("Invalid params", response.getMessage());
+    assertEquals(List.of("objectName: globalMessage"), response.getMessages());
+  }
+
+  @Test
+  @DisplayName("Success: Given MethodArgumentNotValidException with both field and global errors, when handle, then return detail message")
+  void givenMethodArgumentNotValidExceptionWithBothFieldAndGlobalErrorsWhenHandleThenReturnDetailMessage() {
+    BindingResult bindingResult = mock(BindingResult.class);
+    FieldError fieldError = new FieldError("objectName", "field", "defaultMessage");
+    FieldError globalError = new FieldError("objectName", "globalField", "globalMessage");
+    when(bindingResult.getFieldErrors()).thenReturn(List.of(fieldError));
+    when(bindingResult.getGlobalErrors()).thenReturn(List.of(globalError));
+
+    MethodArgumentNotValidException ex = new MethodArgumentNotValidException(null, bindingResult);
+    Message response = globalExceptionHandler.handleMethodArgumentNotValidException(ex);
+
+    assertEquals("VALIDATION_DATA", response.getCode());
+    assertEquals("Invalid params", response.getMessage());
+    assertEquals(List.of("field: defaultMessage", "objectName: globalMessage"),
+        response.getMessages());
   }
 
   @Test

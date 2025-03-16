@@ -92,6 +92,14 @@ public class OfferControllerTest {
   }
 
   @Test
+  @DisplayName("Success: Given offer ID, when deleteOfferById is called, then it returns status 200 OK")
+  public void givenOfferIdWhenDeleteOfferByIdThenReturnsOk() throws Exception {
+    Long offerId = 1L;
+    mockMvc.perform(delete("/offer/{id}", offerId))
+        .andExpect(status().isOk());
+  }
+
+  @Test
   @DisplayName("Success: Given no offer, when getAllOffers is called, then it returns status 200 OK and the list of offers")
   public void givenNoOfferWhenGetAllOffersThenReturnsOk() throws Exception {
     List<Offer> expectedOffers = Collections.singletonList(Offer.builder()
