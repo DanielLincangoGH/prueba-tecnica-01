@@ -25,15 +25,20 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Clear Maven Cache
-        run: mvn clean package
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
 
-      - name: Build with Maven
-        run: |          
-          mvn clean install
+      - name: Run Maven Build and SonarCloud Analysis
+        run: |
+          mvn clean install sonar:sonar -Dsonar.login=${{ secrets.SONAR_TOKEN }}
           mvn -B package --file pom.xml
           mkdir -p artifacts && cp target/*.jar artifacts/
-          cd artifacts && ls
+          cd artifacts && ls       
 
       - name: Save the artifact
         if: success()
@@ -42,9 +47,3 @@ jobs:
           name: github-actions-artifact
           path: target/*.jar
 
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v1
-        with:
-          projectBaseDir: .
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
