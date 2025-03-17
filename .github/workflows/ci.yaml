@@ -35,7 +35,7 @@ jobs:
 
       - name: Run Maven Build and SonarCloud Analysis
         run: |
-          mvn clean install sonar:sonar -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+          mvn clean install sonar:sonar -Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dsonar.host.url=https://sonarcloud.io
           mvn -B package --file pom.xml
           mkdir -p artifacts && cp target/*.jar artifacts/
           cd artifacts && ls       
