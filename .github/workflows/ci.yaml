@@ -19,17 +19,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up JDK 17
+      - name: Set up JDK 11
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          java-version: '11'
           distribution: 'temurin'
 
-      - name: Verify working directory
-        run: |
-          echo "Current directory: $(pwd)"
-          ls -la
-          find src/
+      - name: Check directory structure
+        run: find .
+
+      - name: Clear Maven Cache
+        run: mvn clean
 
       - name: Build with Maven
         run: |
