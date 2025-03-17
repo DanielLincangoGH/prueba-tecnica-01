@@ -19,6 +19,7 @@ This project aims to provide a REST API for managing product offers based on pri
 - **Criteria API JPA**: A Java API used to create queries for entities stored in a relational database in a type-safe manner.
 - **Swagger OpenAPI 3**: For API documentation and testing.
 - **Jacoco**: A Java Code Coverage Library.
+- **@Slf4j**: Lombok annotation for logging.
 
 ## Setup & Installation
 
