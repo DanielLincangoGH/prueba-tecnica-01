@@ -1,7 +1,7 @@
 package com.hiberus.hiring.infrastructure.adapters.db;
 
 import com.hiberus.hiring.domain.model.Brand;
-import com.hiberus.hiring.domain.ports.out.BrandRepository;
+import com.hiberus.hiring.domain.ports.BrandRepository;
 import com.hiberus.hiring.infrastructure.adapters.mapper.BrandMapper;
 import jakarta.persistence.EntityManager;
 import java.util.Optional;

@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hiberus.hiring.domain.model.Offer;
 import com.hiberus.hiring.domain.model.OfferByPartNumber;
-import com.hiberus.hiring.domain.ports.in.OfferService;
+import com.hiberus.hiring.domain.ports.OfferService;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;

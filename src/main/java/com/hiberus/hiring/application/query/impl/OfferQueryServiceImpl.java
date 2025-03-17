@@ -5,7 +5,7 @@ import com.hiberus.hiring.domain.exception.OfferAlreadyExistsException;
 import com.hiberus.hiring.domain.exception.OfferNotFoundException;
 import com.hiberus.hiring.domain.model.Offer;
 import com.hiberus.hiring.domain.model.OfferByPartNumber;
-import com.hiberus.hiring.domain.ports.out.OfferRepository;
+import com.hiberus.hiring.domain.ports.OfferRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

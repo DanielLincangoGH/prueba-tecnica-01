@@ -3,7 +3,7 @@ package com.hiberus.hiring.infrastructure.adapters.rest;
 import com.hiberus.hiring.domain.model.Offer;
 import com.hiberus.hiring.domain.model.OfferByPartNumber;
 import com.hiberus.hiring.domain.model.OfferProduct;
-import com.hiberus.hiring.domain.ports.in.OfferService;
+import com.hiberus.hiring.domain.ports.OfferService;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

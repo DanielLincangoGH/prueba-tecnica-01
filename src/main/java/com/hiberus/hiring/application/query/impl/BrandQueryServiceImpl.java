@@ -2,7 +2,7 @@ package com.hiberus.hiring.application.query.impl;
 
 import com.hiberus.hiring.application.query.BrandQueryService;
 import com.hiberus.hiring.domain.exception.InvalidBrandException;
-import com.hiberus.hiring.domain.ports.out.BrandRepository;
+import com.hiberus.hiring.domain.ports.BrandRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

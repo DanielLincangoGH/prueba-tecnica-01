@@ -5,7 +5,7 @@ import com.hiberus.hiring.application.query.BrandQueryService;
 import com.hiberus.hiring.application.query.OfferQueryService;
 import com.hiberus.hiring.domain.model.Offer;
 import com.hiberus.hiring.domain.model.OfferByPartNumber;
-import com.hiberus.hiring.domain.ports.in.OfferService;
+import com.hiberus.hiring.domain.ports.OfferService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

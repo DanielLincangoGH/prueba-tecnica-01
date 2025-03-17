@@ -2,7 +2,7 @@ package com.hiberus.hiring.infrastructure.adapters.db;
 
 import com.hiberus.hiring.domain.model.Offer;
 import com.hiberus.hiring.domain.model.OfferByPartNumber;
-import com.hiberus.hiring.domain.ports.out.OfferRepository;
+import com.hiberus.hiring.domain.ports.OfferRepository;
 import com.hiberus.hiring.infrastructure.adapters.mapper.OfferMapper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.Root;

@@ -5,7 +5,7 @@ import static org.mockito.Mockito.when;
 
 import com.hiberus.hiring.domain.exception.InvalidBrandException;
 import com.hiberus.hiring.domain.model.Brand;
-import com.hiberus.hiring.domain.ports.out.BrandRepository;
+import com.hiberus.hiring.domain.ports.BrandRepository;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

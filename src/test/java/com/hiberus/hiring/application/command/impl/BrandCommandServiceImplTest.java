@@ -4,7 +4,7 @@ import static org.mockito.Mockito.verify;
 
 import com.hiberus.hiring.domain.enums.BrandEnum;
 import com.hiberus.hiring.domain.model.Brand;
-import com.hiberus.hiring.domain.ports.out.BrandRepository;
+import com.hiberus.hiring.domain.ports.BrandRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

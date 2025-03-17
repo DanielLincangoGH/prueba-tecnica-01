@@ -3,7 +3,7 @@ package com.hiberus.hiring.application.command.impl;
 import static org.mockito.Mockito.verify;
 
 import com.hiberus.hiring.domain.model.Offer;
-import com.hiberus.hiring.domain.ports.out.OfferRepository;
+import com.hiberus.hiring.domain.ports.OfferRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

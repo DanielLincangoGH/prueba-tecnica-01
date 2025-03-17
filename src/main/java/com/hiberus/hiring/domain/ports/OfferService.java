@@ -1,4 +1,4 @@
-package com.hiberus.hiring.domain.ports.in;
+package com.hiberus.hiring.domain.ports;
 
 import com.hiberus.hiring.domain.model.Offer;
 import com.hiberus.hiring.domain.model.OfferByPartNumber;

@@ -2,7 +2,7 @@ package com.hiberus.hiring.application.command.impl;
 
 import com.hiberus.hiring.application.command.BrandCommandService;
 import com.hiberus.hiring.domain.model.Brand;
-import com.hiberus.hiring.domain.ports.out.BrandRepository;
+import com.hiberus.hiring.domain.ports.BrandRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
