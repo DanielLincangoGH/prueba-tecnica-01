@@ -17,6 +17,7 @@ This project aims to provide a REST API for managing product offers based on pri
 - **JUnit 5**: A testing framework for Java.
 - **BDD (Behavior-Driven Development)**: Using Gherkin format for unit tests.
 - **Criteria API JPA**: A Java API used to create queries for entities stored in a relational database in a type-safe manner.
+- **Swagger OpenAPI 3**: For API documentation and testing.
 
 ## Setup & Installation
 
@@ -41,6 +42,8 @@ mvn clean install
 ```bash 
 mvn spring-boot:run
 ``` 
+---
+## Testing
 
 ### Run Unit and Integration Test
 
@@ -48,12 +51,27 @@ mvn spring-boot:run
 nvm test
 ```
 
-### Generate Unit and Integration Test Report
+---
 
+## Generate Unit and Integration Test Report
+### Linux
 ```bash 
 mvn surefire-report:report
 xdg-open target/reports/surefire.html
 ```
+### macOS
+```bash 
+mvn surefire-report:report
+open target/reports/surefire.html
+```
+### Windows
+```bash 
+mvn surefire-report:report
+start target/reports/surefire.html
+```
+
+---
+
 ## Project Architecture
 
 ### Hexagonal Architecture (Ports and Adapters) with the following layers:
@@ -63,6 +81,47 @@ xdg-open target/reports/surefire.html
 - **Ports**: Contains the interfaces that define the operations that can be performed.
 - **Infrastructure**: Contains the database repositories and the implementation of the domain repositories.
 - **Adapter**: Contains the implementation of the ports defined in the domain layer.
+
+```plaintext
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── com
+│   │   │       └── hiberus
+│   │   │           └── hiring
+│   │   │               ├── application
+│   │   │               │   └── service
+│   │   │               │       └── OfferService.java
+│   │   │               ├── domain
+│   │   │               │   ├── model
+│   │   │               │   │   ├── Offer.java
+│   │   │               │   │   ├── OfferByPartNumber.java
+│   │   │               │   │   └── OfferProduct.java
+│   │   │               │   └── ports
+│   │   │               │       └── in
+│   │   │               │           └── OfferService.java
+│   │   │               ├── infrastructure
+│   │   │               │   ├── adapters
+│   │   │               │   │   └── rest
+│   │   │               │   │       └── OfferController.java
+│   │   │               │   └── repository
+│   │   │               │       └── OfferRepository.java
+│   │   │               └── mapper
+│   │   │                   └── OfferMapper.java
+│   │   └── resources
+│   │       └── application.properties
+│   │       
+│   └── test
+│       ├── java
+│       │   └── com
+│       │       └── hiberus
+│       │           └── hiring
+│       │               └── OfferServiceTest.java
+│       └── resources
+│           └── application-test.properties
+```
+
+---
 
 ## Design Patterns
 
@@ -89,6 +148,8 @@ xdg-open target/reports/surefire.html
 - **Command Query Responsibility Segregation (CQRS)**: Used to separate the read and write operations of a data store.
   - **Example**: `OfferQueryService` and `OfferCommandService` interfaces in the application layer.
 
+--- 
+
 ## Design Patterns for Testing
 
 - **Domain-Driven Design (DDD)**: Used to model the domain of the application in software.
@@ -101,6 +162,8 @@ xdg-open target/reports/surefire.html
 
 - **Behavior-Driven Development (BDD)**: Used to write tests in a natural language that describes the behavior of the application.
    - **Example**: Writing Gherkin feature files for the `OfferService` class.
+
+---
 
 ## Best Practices
 
@@ -131,9 +194,38 @@ xdg-open target/reports/surefire.html
      - Using the `@NoArgsConstructor` annotation from Lombok to generate a no-args constructor.
      - Using the `@RequiredArgsConstructor` annotation from Lombok to generate a constructor with required arguments.
 
+---
+
 # Database Schema
 
-## Table: brand
+## H2
+
+We are using H2 as the in-memory database for development and testing.
+
+### Accessing the H2 Console
+
+You can access the H2 console at the following URL:
+
+[http://localhost:8080/h2-console](http://localhost:8080/h2-console)
+
+To open this URL from the command line on Linux, run:
+
+### Open on Linux
+```bash 
+xdg-open http://localhost:8080/h2-console
+```
+### Open on macOS
+```bash 
+open http://localhost:8080/h2-console
+```
+### Open on Windows
+```bash 
+start http://localhost:8080/h2-console
+```
+
+## Data Dictionary
+
+### Table: brand
 
 | **Field**       | **Data Type**        | **Description**                                             | **Constraints**                                |
 |-----------------|----------------------|-------------------------------------------------------------|------------------------------------------------|
@@ -141,7 +233,7 @@ xdg-open target/reports/surefire.html
 | `name`          | `VARCHAR(32)`        | Name of the brand.                                          | Not null, maximum 32 characters.               |
 | `create_date`   | `TIMESTAMP`          | Creation date of the brand.                                 | Default value: `CURRENT_TIMESTAMP`.            |
 
-## Table: offers
+### Table: offers
 
 | **Field**       | **Data Type**        | **Description**                                             | **Constraints**                                |
 |-----------------|----------------------|-------------------------------------------------------------|------------------------------------------------|
@@ -168,6 +260,36 @@ xdg-open target/reports/surefire.html
 
 - **`price_list`, `partnumber`, `priority`**:
     - Ensure valid values are stored for offers, maintaining data integrity.
+
+---
+
+# API Documentation
+
+The API documentation is generated using Swagger with OpenAPI 3. This allows you to explore and test the API endpoints interactively.
+
+## Accessing the API Documentation
+
+You can access the Swagger UI for the API documentation at the following URLs:
+
+- **Swagger UI**: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+- **OpenAPI JSON**: [http://localhost:8080/v3/api-docs](http://localhost:8080/v3/api-docs)
+
+These URLs provide a user-friendly interface to interact with the API and view the available endpoints, request parameters, and response formats.
+
+### Open on Linux
+```bash 
+xdg-open http://localhost:8080/swagger-ui.html
+```
+### Open on macOS
+```bash 
+open http://localhost:8080/swagger-ui.html
+```
+### Open on Windows
+```bash 
+start http://localhost:8080/swagger-ui.html
+```
+
+---
 
 ## IntelliJ IDEA Setup
 
