@@ -33,9 +33,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Run Maven Build and SonarCloud Analysis
+      - name: Maven Build
         run: |
-          mvn clean install sonar:sonar -Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dsonar.host.url=https://sonarcloud.io
+          mvn clean install
           mvn -B package --file pom.xml
           mkdir -p artifacts && cp target/*.jar artifacts/
           cd artifacts && ls       
