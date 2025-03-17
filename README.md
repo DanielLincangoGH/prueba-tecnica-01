@@ -18,6 +18,7 @@ This project aims to provide a REST API for managing product offers based on pri
 - **BDD (Behavior-Driven Development)**: Using Gherkin format for unit tests.
 - **Criteria API JPA**: A Java API used to create queries for entities stored in a relational database in a type-safe manner.
 - **Swagger OpenAPI 3**: For API documentation and testing.
+- **Jacoco**: A Java Code Coverage Library.
 
 ## Setup & Installation
 
@@ -288,6 +289,38 @@ open http://localhost:8080/swagger-ui.html
 ```bash 
 start http://localhost:8080/swagger-ui.html
 ```
+
+---
+
+# Code Quality
+
+## Test Code Coverage
+
+In this project, we are using the JaCoCo library to measure the code coverage of our unit and integration tests.
+
+### Run Test Code Coverage
+
+### Open report in linux
+```bash
+mvn clean test jacoco:report
+xdg-open target/site/jacoco/index.html
+```
+
+### Open report in macOS
+```bash
+mvn clean test jacoco:report
+open target/site/jacoco/index.html
+```
+
+### Open report in Windows
+```bash
+mvn clean test jacoco:report
+start target/site/jacoco/index.html
+```
+
+
+## Checkstyle
+Google Checkstyle rules are used to enforce code quality and maintainability. The rules are defined in the `google_checks.xml` file.
 
 ---
 
