@@ -31,9 +31,17 @@ jobs:
       - name: Clear Maven Cache
         run: mvn clean
 
-      - name: Build with Maven
+      - name: Install Maven
         run: |
-          mvn clean compile
+          mvn clean install
+          
+      - name: List files in target
+        run: |
+          ls -la target/
+
+      - name: Build with Maven
+        run: |          
+          mvn clean install
           mvn -B package --file pom.xml
           mkdir -p artifacts && cp target/*.jar artifacts/
           cd artifacts && ls
