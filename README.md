@@ -367,6 +367,31 @@ open http://localhost:8080/actuator/health
 mvn test -DsuiteTesting=true
 start http://localhost:8080/actuator/health
 ```
+---
+
+# CI/CD with GitHub Actions
+
+This project uses GitHub Actions for Continuous Integration and Continuous Deployment (CI/CD). The CI/CD pipeline is configured to build the project, run tests, and perform a SonarCloud scan for code quality analysis.
+
+## GitHub Actions Workflow
+
+The GitHub Actions workflow is defined in the `.github/workflows/ci.yaml` file. It includes the following steps:
+
+1. **Check out code**:
+    - Checks out the repository code.
+
+2. **Set up JDK 17**:
+    - Sets up Java Development Kit (JDK) version 17 to build the project.
+
+3. **Cache Maven dependencies**:
+    - Caches Maven dependencies to speed up the build process and avoid downloading dependencies repeatedly.
+
+4. **Build with Maven**:
+    - Builds the project using Maven commands (`mvn clean install`).
+
+5. **SonarCloud Scan**:
+    - Runs a SonarCloud scan to analyze code quality, checking for issues like bugs, vulnerabilities, and code smells.
+
 
 ---
 
