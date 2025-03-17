@@ -16,6 +16,7 @@ This is a Spring Boot project designed to provide a basic foundation for buildin
 - **Mockito**: A mocking framework for unit tests.
 - **JUnit 5**: A testing framework for Java.
 - **BDD (Behavior-Driven Development)**: Using Gherkin format for unit tests.
+- **Criteria API JPA**: A Java API used to create queries for entities stored in a relational database in a type-safe manner.
 
 ## Setup & Installation
 
@@ -40,9 +41,21 @@ mvn clean install
 ```bash 
 mvn spring-boot:run
 ``` 
-### Additional Setup
 
-### Additional Setup
+### Run Unit and Integration Test
+
+```bash 
+nvm test
+```
+
+### Generate Unit and Integration Test Report
+
+```bash 
+mvn surefire-report:report
+xdg-open target/reports/surefire.html
+```
+
+### Intellig IDEA Setup
 
 1. **Lombok**: Ensure that the Lombok plugin is installed and enabled in your IDE.
    - For IntelliJ IDEA: Go to `File` > `Settings` > `Plugins`, search for `Lombok`, and install it. Restart the IDE if necessary.
