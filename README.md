@@ -324,6 +324,28 @@ Google Checkstyle rules are used to enforce code quality and maintainability. Th
 
 ---
 
+## Automated Test Cases Report
+
+This project includes a Generic Test Case Suite that executes all test cases and generates a comprehensive report. The suite is located in the file `src/test/java/com/hiberus/hiring/GenericUseCaseSuiteTest.java`. By default, it is excluded from regular test runs via mvn test, but can be triggered on demand by running `mvn test -DsuiteTesting=true`.
+
+### Linux
+```bash 
+mvn test -DsuiteTesting=true
+xdg-open target/suite-test-report.html
+```
+### macOS
+```bash 
+mvn test -DsuiteTesting=true
+open target/suite-test-report.html
+```
+### Windows
+```bash 
+mvn test -DsuiteTesting=true
+start target/suite-test-report.html
+```
+
+---
+
 ## IntelliJ IDEA Setup
 
 1. **Lombok**: Ensure that the Lombok plugin is installed and enabled in your IDE.
