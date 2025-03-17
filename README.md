@@ -51,7 +51,7 @@ mvn spring-boot:run
 ### Run Unit and Integration Test
 
 ```bash 
-nvm test
+mvn test
 ```
 
 ---
@@ -388,9 +388,6 @@ The GitHub Actions workflow is defined in the `.github/workflows/ci.yaml` file. 
 
 4. **Build with Maven**:
     - Builds the project using Maven commands (`mvn clean install`).
-
-5. **SonarCloud Scan**:
-    - Runs a SonarCloud scan to analyze code quality, checking for issues like bugs, vulnerabilities, and code smells.
 
 
 ---
