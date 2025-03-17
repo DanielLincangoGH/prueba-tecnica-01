@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -24,20 +25,25 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Verify working directory
+        run: |
+          echo "Current directory: $(pwd)"
+          ls -la
+          find src/
+
       - name: Build with Maven
         run: |
-          mvn -B package --file pom.xml
-          mkdir artifacts && cp target/*.jar artifacts/
-          cd artifacts && ls
+          mvn -B package --file pom.xml || (echo "Build failed ❌" && exit 1)
 
       - name: Save the artifact
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: github-actions-artifact
-          path: artifacts
+          path: target/*.jar
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v1
         with:
           sonar-token: ${{ secrets.SONAR_TOKEN }}
-          distribution: 'sonar-scanner-cli'
+          projectBaseDir: .
