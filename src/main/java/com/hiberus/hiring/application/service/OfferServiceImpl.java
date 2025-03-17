@@ -4,6 +4,7 @@ import com.hiberus.hiring.application.command.OfferCommandService;
 import com.hiberus.hiring.application.query.BrandQueryService;
 import com.hiberus.hiring.application.query.OfferQueryService;
 import com.hiberus.hiring.domain.model.Offer;
+import com.hiberus.hiring.domain.model.OfferByPartNumber;
 import com.hiberus.hiring.domain.ports.in.OfferService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -47,5 +48,12 @@ public class OfferServiceImpl implements OfferService {
   @Transactional(readOnly = true)
   public Offer findById(Long offerId) {
     return this.offerQueryService.findById(offerId);
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  public List<OfferByPartNumber> findByPartNumberAndBrand(String partNumber, Long brandId) {
+    return this.offerQueryService.findByPartNumberAndBrand(
+        String.format("%012d", Long.parseLong(partNumber)), brandId);
   }
 }

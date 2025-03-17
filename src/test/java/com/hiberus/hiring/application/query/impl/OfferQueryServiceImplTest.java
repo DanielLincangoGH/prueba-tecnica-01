@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 import com.hiberus.hiring.domain.exception.OfferAlreadyExistsException;
 import com.hiberus.hiring.domain.exception.OfferNotFoundException;
 import com.hiberus.hiring.domain.model.Offer;
+import com.hiberus.hiring.domain.model.OfferByPartNumber;
 import com.hiberus.hiring.domain.ports.out.OfferRepository;
 import java.util.Collections;
 import java.util.List;
@@ -89,5 +90,16 @@ class OfferQueryServiceImplTest {
   void givenOfferIdWhenOfferDoesNotExistThenThrowOfferNotFoundException() {
     when(offerRepository.findById(offerId)).thenReturn(Optional.empty());
     assertThrows(OfferNotFoundException.class, () -> offerQueryService.findById(offerId));
+  }
+
+  @Test
+  @DisplayName("Success: Given part number and brand ID, when offers exist, then return offers")
+  void givenPartNumberAndBrandIdWhenOffersExistThenReturnOffers() {
+    String partNumber = "12345";
+    Long brandId = 1L;
+    List<OfferByPartNumber> expectedOffers = Collections.singletonList(new OfferByPartNumber());
+    when(offerRepository.findByPartNumberAndBrand(partNumber, brandId)).thenReturn(expectedOffers);
+    List<OfferByPartNumber> actualOffers = offerQueryService.findByPartNumberAndBrand(partNumber, brandId);
+    assertEquals(expectedOffers, actualOffers);
   }
 }

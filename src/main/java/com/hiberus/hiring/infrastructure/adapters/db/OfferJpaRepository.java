@@ -1,6 +1,7 @@
 package com.hiberus.hiring.infrastructure.adapters.db;
 
 import com.hiberus.hiring.domain.model.Offer;
+import com.hiberus.hiring.domain.model.OfferByPartNumber;
 import com.hiberus.hiring.domain.ports.out.OfferRepository;
 import com.hiberus.hiring.infrastructure.adapters.mapper.OfferMapper;
 import jakarta.persistence.EntityManager;
@@ -52,4 +53,19 @@ public class OfferJpaRepository implements OfferRepository {
     return Optional.ofNullable(entityManager.find(OfferEntity.class, offerId))
         .map(offerMapper::toDomain);
   }
+
+  @Override
+  public List<OfferByPartNumber> findByPartNumberAndBrand(String partNumber, Long brandId) {
+    final var criteriaBuilder = entityManager.getCriteriaBuilder();
+    final var query = criteriaBuilder.createQuery(OfferEntity.class);
+    final var offer = query.from(OfferEntity.class);
+    final var brandPredicate = criteriaBuilder.equal(offer.get("brand").get("id"), brandId);
+    final var partNumberPredicate = criteriaBuilder.equal(offer.get("partnumber"), partNumber);
+    query.select(offer)
+        .where(criteriaBuilder.and(brandPredicate, partNumberPredicate))
+        .orderBy(criteriaBuilder.asc(offer.get("startDate")),
+            criteriaBuilder.desc(offer.get("priority")));
+    return offerMapper.toProductOffersList(entityManager.createQuery(query).getResultList());
+  }
+
 }

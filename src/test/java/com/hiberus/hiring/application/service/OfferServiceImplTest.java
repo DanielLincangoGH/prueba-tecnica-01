@@ -9,6 +9,7 @@ import com.hiberus.hiring.application.command.OfferCommandService;
 import com.hiberus.hiring.application.query.BrandQueryService;
 import com.hiberus.hiring.application.query.OfferQueryService;
 import com.hiberus.hiring.domain.model.Offer;
+import com.hiberus.hiring.domain.model.OfferByPartNumber;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -90,5 +91,16 @@ class OfferServiceImplTest {
     when(offerQueryService.findById(offerId)).thenReturn(expectedOffer);
     Offer actualOffer = offerService.findById(offerId);
     assertEquals(expectedOffer, actualOffer);
+  }
+
+  @Test
+  @DisplayName("Success: Given part number and brand ID, when offers exist, then return offers")
+  void givenPartNumberAndBrandIdWhenOffersExistThenReturnOffers() {
+    String partNumber = "12345";
+    Long brandId = 1L;
+    List<OfferByPartNumber> expectedOffers = Collections.singletonList(new OfferByPartNumber());
+    when(offerQueryService.findByPartNumberAndBrand("000000012345", brandId)).thenReturn(expectedOffers);
+    List<OfferByPartNumber> actualOffers = offerService.findByPartNumberAndBrand(partNumber, brandId);
+    assertEquals(expectedOffers, actualOffers);
   }
 }

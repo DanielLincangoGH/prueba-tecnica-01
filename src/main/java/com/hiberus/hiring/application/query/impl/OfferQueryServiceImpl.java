@@ -4,6 +4,7 @@ import com.hiberus.hiring.application.query.OfferQueryService;
 import com.hiberus.hiring.domain.exception.OfferAlreadyExistsException;
 import com.hiberus.hiring.domain.exception.OfferNotFoundException;
 import com.hiberus.hiring.domain.model.Offer;
+import com.hiberus.hiring.domain.model.OfferByPartNumber;
 import com.hiberus.hiring.domain.ports.out.OfferRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +42,11 @@ public class OfferQueryServiceImpl implements OfferQueryService {
       throw new OfferNotFoundException("Offer not found");
     }
     return offerOptional.get();
+  }
+
+  @Override
+  public List<OfferByPartNumber> findByPartNumberAndBrand(String partNumber, Long brandId) {
+    return offerRepository.findByPartNumberAndBrand(partNumber, brandId);
   }
 
 }

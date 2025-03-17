@@ -1,7 +1,9 @@
 package com.hiberus.hiring.domain.ports.in;
 
 import com.hiberus.hiring.domain.model.Offer;
+import com.hiberus.hiring.domain.model.OfferByPartNumber;
 import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface OfferService {
 
@@ -15,4 +17,5 @@ public interface OfferService {
 
   Offer findById(Long offerId);
 
+  List<OfferByPartNumber> findByPartNumberAndBrand(String partNumber, Long brandId);
 }

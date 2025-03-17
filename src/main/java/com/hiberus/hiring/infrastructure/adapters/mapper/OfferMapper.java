@@ -2,13 +2,13 @@ package com.hiberus.hiring.infrastructure.adapters.mapper;
 
 import com.hiberus.hiring.domain.enums.CurrencyEnum;
 import com.hiberus.hiring.domain.model.Offer;
+import com.hiberus.hiring.domain.model.OfferByPartNumber;
 import com.hiberus.hiring.infrastructure.adapters.db.BrandEntity;
 import com.hiberus.hiring.infrastructure.adapters.db.OfferEntity;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -29,10 +29,17 @@ public interface OfferMapper {
   @Mapping(source = "brand", target = "brandId", qualifiedByName = "brandEntityToBrandId")
   @Mapping(source = "priceList", target = "priceListId", qualifiedByName = "bigDecimalToPriceListId")
   @Mapping(source = "currency", target = "currencyIso", qualifiedByName = "currencyToString")
-  @Mapping(source = "partnumber", target = "productPartnumber", qualifiedByName = "unpadPartnumber")
+  @Mapping(source = "partnumber", target = "productPartnumber")
   Offer toDomain(OfferEntity offerEntity);
 
+  @Mapping(source = "startDate", target = "startDate", qualifiedByName = "offsetDateTimeToString")
+  @Mapping(source = "endDate", target = "endDate", qualifiedByName = "offsetDateTimeToString")
+  @Mapping(source = "price", target = "price")
+  @Mapping(source = "currency", target = "currencyIso")
+  OfferByPartNumber toProductOffers(OfferEntity offerEntity);
+
   List<Offer> toDomainList(List<OfferEntity> offerEntities);
+  List<OfferByPartNumber> toProductOffersList(List<OfferEntity> offerEntity);
 
   @Named("stringToOffsetDateTime")
   default OffsetDateTime stringToOffsetDateTime(String value) {
@@ -82,11 +89,6 @@ public interface OfferMapper {
   @Named("currencyToString")
   default String currencyToString(CurrencyEnum currency) {
     return currency.name();
-  }
-
-  @Named("unpadPartnumber")
-  default String unpadPartnumber(String partnumber) {
-    return String.valueOf(Long.parseLong(partnumber));
   }
 
 }

@@ -2,9 +2,9 @@ package com.hiberus.hiring.infrastructure.adapters.rest;
 
 import com.hiberus.hiring.domain.model.Offer;
 import com.hiberus.hiring.domain.model.OfferByPartNumber;
+import com.hiberus.hiring.domain.model.OfferProduct;
 import com.hiberus.hiring.domain.ports.in.OfferService;
 import jakarta.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -54,8 +54,8 @@ public class OfferController {
 
   @GetMapping(value = "brand/{brandId}/partnumber/{partnumber}/offer")
   @ResponseStatus(HttpStatus.OK)
-  public List<OfferByPartNumber> getOfferByPartNumber(Integer brandId, String partnumber) {
-    //TODO implement it!.
-    return new ArrayList<>();
+  public List<OfferByPartNumber> getOfferByPartNumber(OfferProduct offerProduct) {
+    return this.offerService.findByPartNumberAndBrand(offerProduct.getPartnumber(),
+        Long.valueOf(offerProduct.getBrandId()));
   }
 }

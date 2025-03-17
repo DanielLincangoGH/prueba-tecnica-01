@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hiberus.hiring.domain.model.Offer;
+import com.hiberus.hiring.domain.model.OfferByPartNumber;
 import com.hiberus.hiring.domain.ports.in.OfferService;
 import java.math.BigDecimal;
 import java.util.Collections;
@@ -161,5 +162,20 @@ public class OfferControllerTest {
         .andExpect(jsonPath("$.priority", is(1)))
         .andExpect(jsonPath("$.price", is(10.00)))
         .andExpect(jsonPath("$.currencyIso", is("USD")));
+  }
+
+  @Test
+  @DisplayName("Success: Given part number and brand ID, when offers exist, then return offers")
+  public void givenPartNumberAndBrandIdWhenOffersExistThenReturnOffers() throws Exception {
+    String partNumber = "12345";
+    Long brandId = 1L;
+    List<OfferByPartNumber> expectedOffers = Collections.singletonList(new OfferByPartNumber());
+
+    when(offerService.findByPartNumberAndBrand(partNumber, brandId)).thenReturn(expectedOffers);
+
+    mockMvc.perform(get("/brand/{brandId}/partnumber/{partnumber}/offer", brandId, partNumber)
+            .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$", hasSize(1)));
   }
 }

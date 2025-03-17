@@ -2,11 +2,13 @@ package com.hiberus.hiring.infrastructure.adapters.db;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.hiberus.hiring.domain.model.Offer;
+import com.hiberus.hiring.domain.model.OfferByPartNumber;
 import com.hiberus.hiring.infrastructure.adapters.mapper.OfferMapper;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
@@ -14,6 +16,9 @@ import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaDelete;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Order;
+import jakarta.persistence.criteria.Path;
+import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import java.util.Collections;
 import java.util.List;
@@ -52,6 +57,15 @@ class OfferJpaRepositoryTest {
 
   @Mock
   private TypedQuery<OfferEntity> typedQuery;
+
+  @Mock
+  private Predicate predicate;
+
+  @Mock
+  private Order order;
+
+  @Mock
+  private Path<Object> path;
 
   @InjectMocks
   private OfferJpaRepository offerRepository;
@@ -121,5 +135,42 @@ class OfferJpaRepositoryTest {
     Optional<Offer> actualOffer = offerRepository.findById(offerId);
     assertTrue(actualOffer.isPresent());
     assertEquals(offer, actualOffer.get());
+  }
+
+  @Test
+  @DisplayName("Success: Given part number and brand ID, when findByPartNumberAndBrand, then return matching offers")
+  void givenPartNumberAndBrandIdWhenFindByPartNumberAndBrandThenReturnMatchingOffers() {
+    String partNumber = "12345";
+    Long brandId = 1L;
+    List<OfferEntity> offerEntities = Collections.singletonList(offerEntity);
+    List<OfferByPartNumber> expectedOffers = Collections.singletonList(new OfferByPartNumber());
+
+    when(entityManager.getCriteriaBuilder()).thenReturn(criteriaBuilder);
+    when(criteriaBuilder.createQuery(OfferEntity.class)).thenReturn(criteriaQuery);
+
+    when(criteriaQuery.from(OfferEntity.class)).thenReturn(root);
+
+    when(root.get(anyString())).thenReturn(path);
+    when(path.get(anyString())).thenReturn(path);
+
+    when(criteriaBuilder.equal(path, brandId)).thenReturn(predicate);
+    when(criteriaBuilder.equal(path, partNumber)).thenReturn(predicate);
+
+    when(criteriaBuilder.and(predicate, predicate)).thenReturn(predicate);
+
+    when(criteriaBuilder.asc(path)).thenReturn(order);
+    when(criteriaBuilder.desc(path)).thenReturn(order);
+
+    when(criteriaQuery.select(root)).thenReturn(criteriaQuery);
+    when(criteriaQuery.where(predicate)).thenReturn(criteriaQuery);
+    when(criteriaQuery.orderBy(order, order)).thenReturn(criteriaQuery);
+
+    when(entityManager.createQuery(criteriaQuery)).thenReturn(typedQuery);
+    when(typedQuery.getResultList()).thenReturn(offerEntities);
+    when(offerMapper.toProductOffersList(offerEntities)).thenReturn(expectedOffers);
+
+    List<OfferByPartNumber> actualOffers = offerRepository.findByPartNumberAndBrand(partNumber,
+        brandId);
+    assertEquals(expectedOffers, actualOffers);
   }
 }
