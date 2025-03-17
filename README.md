@@ -131,6 +131,43 @@ xdg-open target/reports/surefire.html
      - Using the `@NoArgsConstructor` annotation from Lombok to generate a no-args constructor.
      - Using the `@RequiredArgsConstructor` annotation from Lombok to generate a constructor with required arguments.
 
+# Database Schema
+
+## Table: brand
+
+| **Field**       | **Data Type**        | **Description**                                             | **Constraints**                                |
+|-----------------|----------------------|-------------------------------------------------------------|------------------------------------------------|
+| `brand_id`      | `SERIAL`             | Unique identifier for the brand.                            | Primary key, auto-increment.                   |
+| `name`          | `VARCHAR(32)`        | Name of the brand.                                          | Not null, maximum 32 characters.               |
+| `create_date`   | `TIMESTAMP`          | Creation date of the brand.                                 | Default value: `CURRENT_TIMESTAMP`.            |
+
+## Table: offers
+
+| **Field**       | **Data Type**        | **Description**                                             | **Constraints**                                |
+|-----------------|----------------------|-------------------------------------------------------------|------------------------------------------------|
+| `offer_id`      | `SERIAL`             | Unique identifier for the offer.                            | Primary key, auto-increment.                   |
+| `brand_id`      | `INT`                | Identifier of the brand related to the offer.               | Foreign key, references `brand_id` in **BRAND**.|
+| `start_date`    | `TIMESTAMPTZ`        | Start date of the offer in UTC format (ISO8601).            | Not null.                                      |
+| `end_date`      | `TIMESTAMPTZ`        | End date of the offer in UTC format (ISO8601).              | Not null.                                      |
+| `price_list`    | `NUMERIC`            | Rate or identifier of the price list.                       | Not null.                                      |
+| `partnumber`    | `VARCHAR(12)`        | Product code associated with the offer.                     | Not null, maximum 12 characters.               |
+| `priority`      | `SMALLINT`           | Priority of the offer within the date range.                | Not null.                                      |
+| `currency`      | `Currency`           | Currency of the offer, using an ENUM type (USD or EUR).     | Not null, must be `USD` or `EUR`.              |
+
+## Constraints and Special Types
+
+- **`brand_id` in offers**:
+    - Foreign key referencing the `brand_id` column in the **BRAND** table.
+    - Ensures that each offer is linked to an existing brand.
+
+- **`currency` in offers**:
+    - ENUM type defined with values `USD` and `EUR`, representing the two available currencies for offers.
+
+- **`start_date` and `end_date` in OFFERS**:
+    - Use the `TIMESTAMPTZ` type to ensure they are stored in UTC format with the correct time (ISO8601).
+
+- **`price_list`, `partnumber`, `priority`**:
+    - Ensure valid values are stored for offers, maintaining data integrity.
 
 ## IntelliJ IDEA Setup
 
