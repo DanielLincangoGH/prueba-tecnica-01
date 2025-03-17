@@ -20,6 +20,7 @@ This project aims to provide a REST API for managing product offers based on pri
 - **Swagger OpenAPI 3**: For API documentation and testing.
 - **Jacoco**: A Java Code Coverage Library.
 - **@Slf4j**: Lombok annotation for logging.
+- **Spring Actuator**: To monitor and manage your Spring Boot application.
 
 ## Setup & Installation
 
@@ -343,6 +344,28 @@ open target/suite-test-report.html
 ```bash 
 mvn test -DsuiteTesting=true
 start target/suite-test-report.html
+```
+
+---
+
+## Health Check
+
+Enabling the Spring Boot Actuator provides a set of production-ready features to help you monitor and manage your application. The `/actuator/health` endpoint provides basic health information about the application.
+
+### Linux
+```bash 
+mvn spring-boot:run
+xdg-open http://localhost:8080/actuator/health
+```
+### macOS
+```bash 
+mvn test -DsuiteTesting=true
+open http://localhost:8080/actuator/health
+```
+### Windows
+```bash 
+mvn test -DsuiteTesting=true
+start http://localhost:8080/actuator/health
 ```
 
 ---
