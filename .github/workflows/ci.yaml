@@ -38,3 +38,4 @@ jobs:
         uses: SonarSource/sonarcloud-github-action@v1
         with:
           sonar-token: ${{ secrets.SONAR_TOKEN }}
+          distribution: 'sonar-scanner-cli'
