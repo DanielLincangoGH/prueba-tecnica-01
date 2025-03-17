@@ -25,19 +25,8 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Check directory structure
-        run: find .
-
       - name: Clear Maven Cache
         run: mvn clean package
-
-      - name: Install Maven
-        run: |
-          mvn clean install
-          
-      - name: List files in target
-        run: |
-          ls -la target/
 
       - name: Build with Maven
         run: |          
@@ -57,5 +46,5 @@ jobs:
         uses: SonarSource/sonarcloud-github-action@v1
         with:
           projectBaseDir: .
-          args: >
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
