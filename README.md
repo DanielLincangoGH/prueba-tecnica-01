@@ -369,6 +369,33 @@ start http://localhost:8080/actuator/health
 ```
 ---
 
+## Docker Containerization
+
+This project includes a Dockerfile that allows you to build a Docker image for the application. You can run the application in a Docker container using the following commands:
+
+## Pre-requisites
+
+- **Docker**: Install Docker on your machine.
+- **Docker Compose**: Install Docker Compose on your machine.
+
+### Run the application with Docker Compose
+
+To start the container, use:
+
+```bash
+ docker compose up --build -d
+```
+
+The app runs on port 8080. You can access the API documentation at [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html).
+
+To stop the container, use:
+
+```bash
+docker compose down
+```
+
+---
+
 # CI/CD with GitHub Actions
 
 This project uses GitHub Actions for Continuous Integration and Continuous Deployment (CI/CD). The CI/CD pipeline is configured to build the project, run tests, and perform a SonarCloud scan for code quality analysis.
